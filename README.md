@@ -15,25 +15,39 @@ Clone this repository to your local machine:
 
 
 
-2. Install Dependencies
+### 2. Install Dependencies
 Navigate to the project directory and install the required Node.js packages:
 
 bash
 Copy code
 npm install
-3. Set Up MySQL Database
-3.1. Create Database Schema
+### 3. Set Up MySQL Database
+#### 3.1. Create Database Schema
 You need to create a database named titan. You can do this by connecting to your MySQL server using a client (e.g., MySQL Workbench, phpMyAdmin, or command line) and running the following SQL command:
 
 CREATE DATABASE titan;
 
-3.2. Create Stored Procedures
-After creating the database, switch to it and create the required stored procedures. Run the following SQL commands in your MySQL client:
+#### 3.2 Create table
+After creating the schwma, Let's create the table. Run the following SQL commands in your MySQL client:
+```sql
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255) NOT NULL,
+    full_address TEXT NOT NULL,
+    image_urls JSON NOT NULL,
+    frame_color VARCHAR(50) NOT NULL,
+    user VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
+```
+#### 3.3. Create Stored Procedures
+After creating the table, switch to it and create the required stored procedures. Run the following SQL commands in your MySQL client:
+```sql
 USE titan;
 
 DELIMITER $$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateOrder`(
     IN p_email VARCHAR(255),
     IN p_full_name VARCHAR(255),
@@ -70,11 +84,12 @@ BEGIN
 END$$
 
 DELIMITER ;
+```
 
-
+### 4. Update config file
 In the root of your project, update the .env file and add your database configuration details
 
-
+### 5. Run app
 run:  npm run start
 
 
